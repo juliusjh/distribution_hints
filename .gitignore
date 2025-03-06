@@ -1,0 +1,5 @@
+.env/
+*.o
+*.elf
+*.bin
+test-outputs/

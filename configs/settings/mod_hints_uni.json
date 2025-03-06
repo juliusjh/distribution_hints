@@ -1,0 +1,11 @@
+{
+    "outpath": null,
+    "save_npz": true,
+    "save_json": true,
+    "is_proper_eval": true,
+    "disable_bp": true,
+    "settings": {
+        "nfac": [1000, 1100, 1200, 1300, 1400, 1500, 2000, 3000, 4000, 5000]
+    },
+    "runs": 5
+}

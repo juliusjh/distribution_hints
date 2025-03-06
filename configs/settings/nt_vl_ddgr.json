@@ -1,0 +1,11 @@
+{
+    "outpath": null,
+    "save_npz": true,
+    "save_json": true,
+    "is_proper_eval": true,
+    "settings":{
+        "sigma": [1.0],
+        "nfac": [5000]
+    },
+    "runs": 5
+}

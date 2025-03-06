@@ -1,0 +1,10 @@
+{
+    "type": "noiseterm",
+    "hw_leakage": true,
+    "seed": 42,
+    "params_noise_dist": null,
+    "target": "intt",
+    "int_size": 16,
+    "max_noise_const": 1,
+    "v_filter": 1
+}

@@ -1,0 +1,12 @@
+{
+    "outpath": null,
+    "save_npz": true,
+    "save_json": true,
+    "is_proper_eval": true,
+    "disable_greedy": true,
+    "settings": {
+        "nfac": [1600, 2500],
+        "p": [0.6, 0.7, 0.8, 0.9, 1.0]
+    },
+    "runs": 5
+}

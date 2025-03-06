@@ -1,0 +1,13 @@
+{
+    "outpath": null,
+    "save_npz": true,
+    "save_json": true,
+    "is_proper_eval": true,
+    "disable_bp": true,
+    "settings":{
+        "sigma": [0.0001, 2],
+        "nfac": [30000],
+        "params_noise_dist": [0, 50, 100, 150, 200, 250]
+    },
+    "runs": 5
+}

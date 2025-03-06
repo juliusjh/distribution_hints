@@ -1,0 +1,7 @@
+{
+    "type": "modhint",
+    "seed": 42,
+    "eq_range": [-20, 20],
+    "bino": false,
+    "eta": null
+}

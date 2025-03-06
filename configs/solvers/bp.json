@@ -1,0 +1,8 @@
+    {
+        "steps": 50, 
+        "batch": null,
+        "damping": null,
+        "worst_vars": null,
+        "bikz_abort": 100,
+        "no_change_bikz_abort": 10
+    }

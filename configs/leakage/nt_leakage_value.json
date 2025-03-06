@@ -1,0 +1,9 @@
+{
+    "type": "noiseterm",
+    "hw_leakage": false,
+    "seed": 42,
+    "params_noise_dist": null,
+    "target": "subtraction",
+    "int_size": null,
+    "max_noise_const": null
+}
