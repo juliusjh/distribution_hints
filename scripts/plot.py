@@ -3,6 +3,7 @@ import copy
 import argparse
 import json
 import itertools
+import sys
 from functools import cmp_to_key
 
 
@@ -55,7 +56,7 @@ def get_graphs_from_jsons(jsons, x_axis, y_axis, z_axis, parameters, exclude):
     final_graph = {}
     for json_file in jsons:
         if os.stat(json_file).st_size == 0:
-            print(f"{json_file} is empty. Skipping..")
+            print(f"{json_file} is empty. Skipping..", file=sys.stderr)
             continue
         with open(json_file, 'r') as f:
             d = json.load(f)
@@ -63,25 +64,25 @@ def get_graphs_from_jsons(jsons, x_axis, y_axis, z_axis, parameters, exclude):
         for graph in new_graphs:
             if graph[0] in final_graph:
                 if not set(final_graph[graph[0]].keys()).isdisjoint(set(graph[1].keys())):
-                    print(f"WARNING:Duplicate setting found. {json_file=}; {graph[1]=}")
-                    print("First graph: ")
-                    print(final_graph[graph[0]])
-                    print("Second graph:")
-                    print(graph[1])
+                    print(f"WARNING:Duplicate setting found. {json_file=}; {graph[1]=}", file=sys.stderr)
+                    print("First graph: ", file=sys.stderr)
+                    print(final_graph[graph[0]], file=sys.stderr)
+                    print("Second graph:", file=sys.stderr)
+                    print(graph[1], file=sys.stderr)
                     for k in graph[1].keys():
                         if k in final_graph[graph[0]]:
                             if not final_graph[graph[0]][k] == graph[1][k]:
-                                print(f"WARNING:CONFLICTING DATA for {k=}:")
-                                print(f"  Original:{final_graph[graph[0]][k]}; new: {graph[1][k]}")
+                                print(f"WARNING:CONFLICTING DATA for {k=}:", file=sys.stderr)
+                                print(f"  Original:{final_graph[graph[0]][k]}; new: {graph[1][k]}", file=sys.stderr)
                             else:
-                                print(f" Data agrees for {k=}; both {final_graph[graph[0]][k]}")
+                                print(f" Data agrees for {k=}; both {final_graph[graph[0]][k]}", file=sys.stderr)
                         else:
                             final_graph[graph[0]][k] = graph[1][k]
                 else:
                     final_graph[graph[0]] |= graph[1]
             else:
                 final_graph[graph[0]] = graph[1]
-        print(f"Loaded {json_file}.")
+        print(f"Loaded {json_file}.", file=sys.stderr)
     # print(final_graph)
     # print()
     return final_graph
@@ -143,9 +144,9 @@ def find_jsons(path, use_all, nosubdirs):
             if len(subdirs) > 1 and not use_all:
                 yn = input(f"Use {subd}? ").strip().lower()
                 if yn != "y" and yn != "yes":
-                    print(f"Skipping {subd}.")
+                    print(f"Skipping {subd}.", file=sys.stderr)
                     continue
-            print(f"Using {subd}.")
+            print(f"Using {subd}.", file=sys.stderr)
             cur = jn(path, subd)
             jsons_loc = [jn(cur, name) for name in os.listdir(cur) if os.path.isfile(
                 jn(cur, name)) and name.endswith(".json") and not name.endswith(".part.json")]
@@ -211,9 +212,9 @@ def main():
         else:
             jsons += find_jsons(p, args.use_all_jsons, args.no_subdirs)
     if len(jsons) == 0:
-        print("No JSONs")
+        print("No JSONs", file=sys.stderr)
         exit(0)
-    print("="*10 + "Dict" + "="*10 + "\n")
+    print("="*10 + "Dict" + "="*10 + "\n", file=sys.stderr)
     compact_print = ""
     for y_param in args.y:
         graphs = get_graphs_from_jsons(jsons, args.x, y_param, args.z, args.parameters, args.exclude)
@@ -224,11 +225,11 @@ def main():
             fs = pretty_print_3d(graphs)
         else:
             fs = pretty_print(graphs)
-        print("="*10 + "PGF" + "="*10 + "\n")
+        print("="*10 + "PGF" + "="*10 + "\n", file=sys.stderr)
         compact_print += "="*10 + y_param + "="*10 + "\n"
         compact_print += print_pgf(fs, args.x, args.z, args.parameters, args.skip_colors)
-    print("="*10 + "COMPACT" + "="*10 + "\n")
-    print(compact_print)
+    print("="*10 + "COMPACT" + "="*10 + "\n", file=sys.stderr)
+    print(compact_print, file=sys.stderr)
 
 
 if __name__ == "__main__":
