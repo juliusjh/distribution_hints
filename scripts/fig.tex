@@ -1,0 +1,29 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\pgfplotsset{scaled x ticks=false}
+\pgfplotsset{scaled y ticks=false}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+			title={},
+			xlabel={x-axis},
+			ylabel={y-axis},
+			xmin=1000, xmax=5000,
+			ymin=0, ymax=650,
+			xtick={1000, 2000, 3000, 4000, 5000},
+			ytick={0, 200, 400, 600},
+			ymajorgrids=true,
+			xmajorgrids=true,
+			grid style=dashed,
+			width=5cm,
+			height=3.5cm,
+			scaled ticks=false,
+			legend style={nodes={scale=0.7, transform shape}, at={(0.5,0.5)},anchor=west},
+		]
+    @@OUTPUT@@
+	\end{axis}
+\end{tikzpicture}
+\end{document}
+

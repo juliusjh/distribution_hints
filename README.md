@@ -22,105 +22,135 @@ For the latest version, see [https://github.com/juliusjh/distribution_hints_solv
 - Make sure a python version >= 3.9 is installed
 - Use setup.sh to create a virtual environment (under ``.env/``), install required python packages, and compile the rust files
 - Note that you need to source ``setup.sh``, i.e., ``source setup.sh``
+- Note that the size of the message (SZ_MSG) needs to be adapted in the rust code, which needs to be recompiled after changing it.
     
 ## Calls to reproduce Figures
 The following calls require tmux (see [https://github.com/tmux/tmux/wiki](https://github.com/tmux/tmux/wiki)). After calling them, use ``tmux attach`` to see the output of the calls. Results will be under ``results/``.
+The plot script will generate the coordinates in a pgfplots compatible format, as well as simple coordinates based on the result json.
 For general usage see below.
 
 ### Fig. 3:
 
 #### a)
 
-``./start_runs_all_threads.sh perfect_hint.json hints.json 20 perfect_hints``
+- run: ``./start_runs_all_threads.sh perfect_hint.json hints.json 20 perfect_hints``
+- plot: ``python scripts/plot.py -y bikz_avg -x p -p solver nfac p --use-all-jsons --sorted results/perfect_hint_hints``
 
 #### b)
 
-``./start_runs_all_threads.sh perfect_hint_bino.json hints.json 20 perfect_hints_bino_gr``
+- run: ``./start_runs_all_threads.sh perfect_hint_bino.json hints.json 20 perfect_hints_bino_gr``
+- plot: ``python scripts/plot.py -y bikz_avg -x p -p solver nfac p  --use-all-jsons --sorted results/perfect_hint_bino_hints``
 
 and 
 
-``./start_runs_all_threads.sh perfect_hint_bino.json bino_hints.json 10 perfect_hints_bino_bp``
+- run: ``./start_runs_all_threads.sh perfect_hint_bino.json bino_hints.json 10 perfect_hints_bino_bp``
+- plot: ``python scripts/plot.py -y bikz_avg -x p -p solver nfac p  --use-all-jsons --sorted results/perfect_hint_bino_bino_hints``
 
 #### c)
 
-``./start_runs_all_threads.sh approximate_hint.json approximate_hint_greedy.json 10 approximate_hint_gr``
-
+- run: ``./start_runs_all_threads.sh approximate_hint.json approximate_hint_greedy.json 10 approximate_hint_gr``
+- plot: ``python scripts/plot.py -y bikz_avg -x sigma -p solver nfac sigma  --use-all-jsons --sorted results/approximate_hint_approximate_hint_greedy``
 #### d)
 
-``./start_runs_all_threads.sh approximate_hint_bino.json approximate_hint.json 16 approximate_hint_bino``
-
+- run: ``./start_runs_all_threads.sh approximate_hint_bino.json approximate_hint.json 16 approximate_hint_bino``
+- plot: ``python scripts/plot.py -y bikz_avg -x sigma -p solver nfac sigma  --use-all-jsons --sorted results/approximate_hint_bino_approximate_hint``
 ### Fig. 4:
 
-``./start_runs_all_threads.sh approximate_hint.json approximate_hint_single_greedy.json 40 approximate_hint_single_greedy`` 
+- run: ``./start_runs_all_threads.sh approximate_hint.json approximate_hint_single_greedy.json 40 approximate_hint_single_greedy`` 
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x nfac -p solver nfac sigma  --use-all-jsons --sorted results/approximate_hint_approximate_hint_single_greedy``
 
 and 
 
-``./start_runs_all_threads.sh approximate_hint_bino.json approximate_hint_single.json 40 approximate_hint_single_bino``
+- run: ``./start_runs_all_threads.sh approximate_hint_bino.json approximate_hint_single.json 40 approximate_hint_single_bino``
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x nfac -p solver nfac sigma  --use-all-jsons --sorted results/approximate_hint_bino_approximate_hint_single``
 
 ### Fig. 6:
 
-``./start_runs_all_threads.sh nt_leakage_value.json nt_vl_bp.json 15 nt_vl_bp``
+- run: ``./start_runs_all_threads.sh nt_leakage_value.json nt_vl_bp.json 15 nt_vl_bp``
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x nfac -p solver nfac sigma  --use-all-jsons --sorted results/nt_leakage_value_nt_vl_bp``
 
 and 
 
-``./start_runs_all_threads.sh nt_leakage_value.json nt_vl_greedy.json 15 nt_vl_greedy``
+- run: ``./start_runs_all_threads.sh nt_leakage_value.json nt_vl_greedy.json 15 nt_vl_greedy``
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x nfac -p solver nfac sigma  --use-all-jsons --sorted results/nt_leakage_value_nt_vl_greedy``
 
 ### Fig. 7:
 
-``./start_runs_all_threads.sh nt_leakage_hw.json nt_hw_bp.json 18 nt_hw_bp`` 
+- run: ``./start_runs_all_threads.sh nt_leakage_hw.json nt_hw_bp.json 18 nt_hw_bp`` 
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x sigma -p solver sigma nfac  --use-all-jsons --sorted results/nt_leakage_hw_nt_hw_bp``
 
 and 
 
-``./start_runs_all_threads.sh nt_leakage_hw.json nt_hw_greedy.json 18 nt_hw_gr``
+- run: ``./start_runs_all_threads.sh nt_leakage_hw.json nt_hw_greedy.json 18 nt_hw_gr``
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x sigma -p solver sigma nfac conv  --use-all-jsons --sorted results/nt_leakage_hw_nt_hw_greedy``
 
 ### Fig. 8:
 
-``./start_runs_all_threads.sh nt_leakage_intt.json nt_hw_intt_bp.json 12 nt_hw_intt_bp`` 
+- run: ``./start_runs_all_threads.sh nt_leakage_intt.json nt_hw_intt_bp.json 12 nt_hw_intt_bp`` 
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x sigma -p solver sigma nfac  --use-all-jsons --sorted results/nt_leakage_intt_nt_hw_intt_bp``
 
 and 
 
-``./start_runs_all_threads.sh nt_leakage_intt.json nt_hw_intt_greedy.json 12 nt_hw_intt_gr``
+- run: ``./start_runs_all_threads.sh nt_leakage_intt.json nt_hw_intt_greedy.json 12 nt_hw_intt_gr``
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x sigma -p solver sigma nfac nd --use-all-jsons --sorted results/nt_leakage_intt_nt_hw_intt_greedy``
 
 ### Fig. 9:
 
-``./start_runs_all_threads.sh nt_leakage_hw.json numerical_bp.json 6 nt_hw_numerical_bp`` 
+- run: ``./start_runs_all_threads.sh nt_leakage_hw.json numerical_bp.json 6 nt_hw_numerical_bp``
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x sigma -p solver sigma nfac  --use-all-jsons --sorted results/nt_leakage_hw_numerical_bp``
 
 and 
 
 (same as in Fig. 7)
-``./start_runs_all_threads.sh nt_leakage_hw.json nt_hw_greedy.json 18 nt_hw_numerical_gr``
-
+- run: ``./start_runs_all_threads.sh nt_leakage_hw.json nt_hw_greedy.json 18 nt_hw_numerical_gr``
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x sigma -p solver sigma nfac conv  --use-all-jsons --sorted results/nt_leakage_hw_nt_hw_greedy``
 
 ### Fig. 10:
 
-``./start_runs_all_threads.sh nt_leakage_hw.json conv_eval_bp.json 12 nt_hw_conv_bp`` 
+- run: ``./start_runs_all_threads.sh nt_leakage_hw.json conv_eval_bp.json 12 nt_hw_conv_bp`` 
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x conv -p solver sigma nfac conv  --use-all-jsons --sorted results/nt_leakage_hw_conv_eval_bp``
 
 and 
 
-``./start_runs_all_threads.sh nt_leakage_hw.json conv_eval_gr.json 12 nt_hw_conv_gr`` 
+- run: ``./start_runs_all_threads.sh nt_leakage_hw.json conv_eval_gr.json 12 nt_hw_conv_gr`` 
+- plot: ``python scripts/plot.py -y bikz_avg bikz_min bikz_max -x conv -p solver sigma nfac conv  --use-all-jsons --sorted results/nt_leakage_hw_conv_eval_gr``
 
 ### Fig. 11:
 
-``./start_runs_all_threads.sh modular_hint.json mod_hints_uni.json 10 mod_hints_uni`` 
+- run: ``./start_runs_all_threads.sh modular_hint.json mod_hints_uni.json 10 mod_hints_uni`` 
+- plot: ``python scripts/plot.py -y bikz_avg -x nfac -p solver nfac --use-all-jsons --sorted results/modular_hint_mod_hints_uni``
 
 and 
 
-``./start_runs_all_threads.sh modular_hint_bino.json mod_hints_bino.json 10 mod_hints_bino``
+- run: ``./start_runs_all_threads.sh modular_hint_bino.json mod_hints_bino.json 10 mod_hints_bino``
+- plot: ``python scripts/plot.py -y bikz_avg -x nfac -p solver nfac --use-all-jsons --sorted results/modular_hint_bino_mod_hints_bino``
 
 
 ### runtime
 
-``./start_runs.sh configs/leakage/perfect_hint_bino.json configs/settings/runtime_perf.json 0 2 2 40 runtime_perfect_hint_40``
+- run: ``./start_runs.sh configs/leakage/perfect_hint_bino.json configs/settings/runtime_perf.json 0 2 2 40 runtime_perfect_hint_40``
+- plot: ``python scripts/plot.py -y seconds_avg seconds_min seconds_max -x nfac -p solver nfac  --use-all-jsons --sorted results/perfect_hint_bino_runtime_perf``
 
-``./start_runs.sh configs/leakage/perfect_hint_bino.json configs/settings/runtime_perf.json 0 2 1 1 runtime_perfect_hint_1``
+and
 
-``./start_runs.sh configs/leakage/approximate_hint_bino.json configs/settings/runtime.json 0 2 2 40 runtime_approx_hint_40``
+- run: ``./start_runs.sh configs/leakage/perfect_hint_bino.json configs/settings/runtime_perf.json 0 2 1 1 runtime_perfect_hint_1``
+- plot: ``python scripts/plot.py -y seconds_avg seconds_min seconds_max -x nfac -p solver nfac  --use-all-jsons --sorted results/perfect_hint_bino_runtime_perf``
 
-``./start_runs.sh configs/leakage/approximate_hint_bino.json configs/settings/runtime_greedy.json 0 2 1 1 runtime_approx_hint_1``
+and
+
+- run: ``./start_runs.sh configs/leakage/approximate_hint_bino.json configs/settings/runtime.json 0 2 2 40 runtime_approx_hint_40``
+- plot: ``python scripts/plot.py -y seconds_avg seconds_min seconds_max -x nfac -p solver nfac sigma  --use-all-jsons --sorted results/approximate_hint_bino_runtime``
+
+and
+
+- run: ``./start_runs.sh configs/leakage/approximate_hint_bino.json configs/settings/runtime_greedy.json 0 2 1 1 runtime_approx_hint_1``
+- plot: ``python scripts/plot.py -y seconds_avg seconds_min seconds_max -x nfac -p solver nfac sigma  --use-all-jsons --sorted results/approximate_hint_bino_runtime_greedy``
 
 ## General usage
 
 Use ``python eval.py [leakage_file] [setting file] --threads $THREADS --parts [from which setting to which setting]``.
+
+For plotting use ``python scripts/plot.py -y [y_axis] -x [x_axis] --parameters [list all paremerts] --use-all-jsons --sorted [path_to_json]``.
 
 ## Settings 
 
