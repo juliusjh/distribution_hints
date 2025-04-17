@@ -1,0 +1,36 @@
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\pgfplotsset{scaled x ticks=false}
+\pgfplotsset{scaled y ticks=false}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+			title={},
+			xlabel={Noise [$\sigma$]},
+			ylabel={Security [BIKZ]},
+			xmin=0, xmax=20,
+			ymin=0, ymax=650,
+			xtick={0, 5, 10, 15, 20},
+			ytick={0, 200, 400, 600},
+			legend pos=south east,
+			ymajorgrids=true,
+			xmajorgrids=true,
+			grid style=dashed,
+			width=5cm,
+			height=3.5cm,
+			scaled ticks=false,
+			legend style={nodes={scale=0.7, transform shape}, at={(0.5,0.5)},anchor=west},
+		]
+
+@@OUTPUT@@
+
+		\addplot[red, dashed, very thick, domain=0:20] {100};
+
+		%\legend{1600 (GR), 2500 (GR)}
+
+
+	\end{axis}
+\end{tikzpicture}
+\end{document}

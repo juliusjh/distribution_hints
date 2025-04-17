@@ -3,7 +3,7 @@
 BASEDIR=$(realpath $(dirname "$0"))
 
 THREADS=$(nproc)
-DEFAULTFIGURES="3a 3b 3c 3d 4 6 7 8 9 10 11"
+DEFAULTFIGURES="3a 3b 3c 3d 4 6 7 8 9 10 11a 11b"
 FIGURES="${DEFAULTFIGURES}"
 
 while getopts "t:f:" opt; do
@@ -93,10 +93,16 @@ for fig in ${FIGURES}; do
       RESULTS=(nt_leakage_hw_conv_eval_bp nt_leakage_hw_conv_eval_gr)
       PLOTPARAMS="-y bikz_avg bikz_min bikz_max -x conv -p solver sigma nfac conv"
       ;;
-    11)
-      LEAKFILES=(modular_hint modular_hint_bino)
-      SETFILES=(mod_hints_uni mod_hints_bino)
-      RESULTS=(modular_hint_mod_hints_uni modular_hint_bino_mod_hints_bino)
+    11a)
+      LEAKFILES=(modular_hint)
+      SETFILES=(mod_hints_uni)
+      RESULTS=(modular_hint_mod_hints_uni)
+      PLOTPARAMS="-y bikz_avg -x nfac -p solver nfac"
+      ;;
+    11b)
+      LEAKFILES=(modular_hint_bino)
+      SETFILES=(mod_hints_bino)
+      RESULTS=(modular_hint_bino_mod_hints_bino)
       PLOTPARAMS="-y bikz_avg -x nfac -p solver nfac"
       ;;
     *)
@@ -105,6 +111,10 @@ for fig in ${FIGURES}; do
   esac
 
   echo figure=${fig}
+  FIGUREDATA=fig${fig}.data
+  FIGUREPGF=fig${fig}.pgf
+  echo "Data for figure ${fig}" > ${FIGUREDATA}
+  echo "% PGF commands for figure ${fig}" > ${FIGUREPGF}
   for (( i=0; i<${#LEAKFILES[*]}; ++i )); do
     leakfile=${LEAKFILES[$i]}
     setfile=${SETFILES[$i]}
@@ -117,7 +127,9 @@ for fig in ${FIGURES}; do
     cd src/
     python3 eval.py --threads ${THREADS} ../configs/leakage/${leakfile}.json ../configs/settings/${setfile}.json
     cd ../
-    python3 scripts/plot.py ${PLOTPARAMS}${ALTPLOTPARAMS} --use-all-jsons --sorted results/${result} | sed -e "/@@OUTPUT@@/r /dev/stdin" -e "/@@OUTPUT@@/d" scripts/fig.tex > figure${fig}.tex
+    python3 scripts/plot.py ${PLOTPARAMS}${ALTPLOTPARAMS} --use-all-jsons --sorted results/${result} >> ${FIGUREPGF} 2>> ${FIGUREDATA}
   done
+
+  sed -e "/@@OUTPUT@@/r ${FIGUREPGF}" -e "/@@OUTPUT@@/d" scripts/fig${fig}.tex > figure${fig}.tex
 done
 

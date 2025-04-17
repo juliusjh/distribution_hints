@@ -1,0 +1,34 @@
+% !TeX root = ../../main.tex
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\pgfplotsset{scaled x ticks=false}
+\pgfplotsset{scaled y ticks=false}
+
+\begin{document}
+\begin{tikzpicture}
+	\begin{axis}[
+			title={},
+			xlabel={Noise [$\sigma$]},
+			ylabel={Security [BIKZ]},
+			xmin=0, xmax=5,
+			ymin=0, ymax=650,
+			xtick={0, 1, 2, 3, 4, 5},
+			ytick={0, 200, 400, 600},
+			legend pos=south east,
+			ymajorgrids=true,
+			xmajorgrids=true,
+			grid style=dashed,
+			width=11cm,
+			height=4cm,
+			scaled ticks=false,
+			legend style={nodes={scale=0.5, transform shape}, at={(0.98,0.4)},anchor=east},
+		]
+
+		\addplot[red, dashed, very thick] {100};
+
+@@OUTPUT@@
+        
+	\end{axis}
+\end{tikzpicture}
+\end{document}
