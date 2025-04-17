@@ -23,6 +23,13 @@ For the latest version, see [https://github.com/juliusjh/distribution_hints_solv
 - Use setup.sh to create a virtual environment (under ``.env/``), install required python packages, and compile the rust files
 - Note that you need to source ``setup.sh``, i.e., ``source setup.sh``
 - Note that the size of the message (SZ_MSG) needs to be adapted in the rust code, which needs to be recompiled after changing it.
+
+## Campaign Script
+
+To quickly reproduce the figures (albeit without the final formatting present in the publication), the `genfigures.sh` script can be used:
+
+- run: `./genfigures.sh -f "3a 3b 3c 3d 4 6 7 8 9 10 11a 11b"`
+- output: general plotting info in `fig<N>.data`, PGF calls in `fig<N>.pgf`, standalone TeX file in `figure<N>.tex`
     
 ## Calls to reproduce Figures
 The following calls require tmux (see [https://github.com/tmux/tmux/wiki](https://github.com/tmux/tmux/wiki)). After calling them, use ``tmux attach`` to see the output of the calls. Results will be under ``results/``.
